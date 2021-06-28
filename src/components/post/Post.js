@@ -1,5 +1,10 @@
-export default function User({item: post}) {
-    return(
-        <div>{post.id} - {post.title}</div>
+export default function Post({item}) {
+    return (
+        <div>
+            {
+                item.title
+            }
+        </div>
     )
+
 }
