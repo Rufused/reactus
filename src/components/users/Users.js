@@ -1,5 +1,3 @@
-import {useEffect,useState} from 'react';
-
 import User from "../user/User";
 
 export default function Users({items}) {
