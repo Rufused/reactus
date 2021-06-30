@@ -9,19 +9,9 @@ export default function App() {
         getUsers().then(value => setUsers(value.data))
     },[])
 
-
     return (
         <div className="App">
-            <Menu
-                pages={['user page', 'component page', 'posts page']}
-                classes={['target','xxx']}
-            />
-            <Users/>
-            <Menu
-                pages={['about','team']}
-                classes={['asd','target']}
-            />
-
+            <Users items={users}/>
         </div>
     );
 }
