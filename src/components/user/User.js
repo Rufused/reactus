@@ -1,7 +1,5 @@
-export default function User(props) {
-    let {item: user} = props;
+export default function User({item: user, func}) {
     return(
-        <div>{user.id} - {user.name}</div>
+        <div>{user.id} - {user.name} - <button key={key} onClick={()=>{}}>click</button></div>
     )
-
 }
