@@ -1,5 +1,5 @@
-import {useEffect} from 'react';
-import {useState} from 'react'
+import {useEffect,useState} from 'react';
+
 import User from "../user/User";
 export default function Users() {
     let [users, setUsers] = useState([]);
