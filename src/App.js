@@ -12,7 +12,16 @@ export default function App() {
 
     return (
         <div className="App">
-            <Users items={users}/>
+            <Menu
+                pages={['user page', 'component page', 'posts page']}
+                classes={['target','xxx']}
+            />
+            <Users/>
+            <Menu
+                pages={['about','team']}
+                classes={['asd','target']}
+            />
+
         </div>
     );
 }
