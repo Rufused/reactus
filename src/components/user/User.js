@@ -1,4 +1,3 @@
-
 import {getPosts} from "../../services/API";
 import UserPosts from "../UserPosts/UserPosts";
 import {useState} from "react";
