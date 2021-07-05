@@ -1,17 +1,17 @@
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Users from "./components/users/Users";
-import {getUsers} from "./services/API";
-import {useEffect, useState} from 'react'
-
+import Posts from "./components/posts/Posts";
 export default function App() {
-    let [users, setUsers] = useState([]);
+    return(
+        <Router>
+            <div>
+                <Link to={'/users'}>to users page</Link>
+                <br/>
+                <Link to={'/posts'}>to posts </Link>
+                <Route path={'/users'} render={()=> <Users/>}/>
+                <Route path={'/posts'} render={()=> <Posts/>}/>
+            </div>
+        </Router>
+    )
 
-    useEffect(()=>{
-        getUsers().then(value => setUsers(value.data))
-    },[])
-
-    return (
-        <div className="App">
-            <Users items={users}/>
-        </div>
-    );
 }
