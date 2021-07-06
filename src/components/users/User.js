@@ -2,7 +2,6 @@ import {getUserPosts} from "../../services/API";
 import UserPosts from "../UserPosts/UserPosts";
 import {useState} from "react";
 
-
 export default function User({user}) {
 
     let [posts, setPosts] = useState([]);

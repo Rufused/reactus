@@ -9,4 +9,4 @@ const getUserPosts = (id) => axiosInstance('/users/' + id + '/posts');
 const getPosts = () => axiosInstance('/posts');
 const getPostComments = (id) => axiosInstance('/posts/'+id+'/comments');
 const getComments = () => axiosInstance('/comments')
-export {getUsers, getPosts, getComments, getUserPosts};
+export {getUsers, getPosts, getComments, getPostComments, getUserPosts};
