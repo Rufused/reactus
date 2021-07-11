@@ -1,32 +1,66 @@
 import {useDispatch, useSelector} from "react-redux";
+import {getPosts} from "./services/API";
+import {useEffect} from "react";
 
 
-const {name, age, car, car: {model}} = {name: 'vasya', age: 23, car: {model: 'audi', color: 'red'}};
-console.log(name);
-console.log(car);
-console.log(model);
+
 
 const NestedChild = () => {
-    // const counter = useSelector((state) => {
-    // console.log('from useSelector', state)
-    // return state.counter.value
-    // })
-
-    // const counter = useSelector(state => console.log(state.counter))
-    // console.log(counter.counter.value);
+    const counter = useSelector(({counter: {value}}) => value)
+    const posts = useSelector(({posts}) => posts)
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({type:'CUST',payload: {custom: event.target.custom.value}})
+    }
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        getPosts().then(value => (posts.push(value.data)))
+    },[])
+
+
+    dispatch({
+        type: 'ADD_POSTS',
+        payload: {posts: posts}
+    })
+
+
+
+
     return(<div>
-        {/*{counter.counter.value}*/}
+        {counter}
+        <br/>
         <button onClick={()=>{
             dispatch({type:'INC'})
-        }}>inc</button>
+        }}>Increment</button>
         <br/>
-        {2+1}
+        <button onClick={()=>{
+            dispatch({type:'DEC'})
+        }}>Decrement</button>
+        <br/>
+        <button onClick={()=>{
+            dispatch({type:'NUL'})
+        }}>Reset</button>
+        <br/>
+
+        <form  onSubmit={handleSubmit}>
+            <button type={"submit"}>Custom</button>
+            <input name={"custom"} type="text"/>
+        </form>
+
+        <ul>
+            {posts.map(post =>(
+
+                <li key={post.id}>
+                    {post.title}
+                </li>
+                    ))}
+        </ul>
+
+
     </div>);
 }
-
-
 
 
 

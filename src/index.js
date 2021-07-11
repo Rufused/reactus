@@ -9,7 +9,8 @@ import {Provider} from "react-redux";
 const initialState = {
     counter:{
         value: 0
-    }
+    },
+    posts: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -32,12 +33,22 @@ const reducer = (state = initialState, action) => {
                 {value: state.counter.value=0}
             }
         }
-        // case 'CUST':{
-        //     return {...state,
-        //     counter:
-        //         {value: state.counter.value = custom}
-        //     }
-        // }
+        case 'CUST':{
+            if (Number(action.payload)){
+                return {...state,
+                counter:
+                    {value: state.counter.value = Number(action.payload.custom)}
+                }
+            }
+        }
+        case 'ADD_POST':{
+            return {
+                ...state,
+                posts: action.payload.posts
+            }
+        }
+
+
         default:
             return state;
 
@@ -48,15 +59,10 @@ const reducer = (state = initialState, action) => {
 const store = createStore(reducer)
 
 store.subscribe(()=>{
-   console.log(store.getState(),'------')
+   console.log(store.getState())
 })
 
-const INCREMENT_ACTION ={
-    type: 'INC'
-}
 
-store.dispatch(INCREMENT_ACTION)
-store.dispatch(INCREMENT_ACTION)
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
