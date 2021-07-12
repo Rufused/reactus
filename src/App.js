@@ -1,37 +1,31 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "./services/API";
-import {useEffect} from "react";
-
-
-
+import {useEffect, useState} from "react";
 
 const NestedChild = () => {
     const counter = useSelector(({counter: {value}}) => value)
     const posts = useSelector(({posts}) => posts)
+
+    const [inp, setInp] = useState('');
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch({type:'CUST',payload: {custom: event.target.custom.value}})
+        dispatch({type:'CUST',payload: +inp})
     }
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        getPosts().then(value => (posts.push(value.data)))})
-
-
-
-    dispatch({
+        getPosts().then(value => dispatch({
         type: 'ADD_POSTS',
-        payload: {posts}
-    })
-
+        posts: value.data}))
+    },[])
 
 
 
     return(<div>
         {counter}
-        {console.log(posts,'22222222222222222222222222')}
-        {posts.map(post => console.log(post))}
         <br/>
         <button onClick={()=>{
             dispatch({type:'INC'})
@@ -48,13 +42,12 @@ const NestedChild = () => {
 
         <form  onSubmit={handleSubmit}>
             <button type={"submit"}>Custom</button>
-            <input name={"custom"} type="text"/>
+            <input name={"custom"} type="text" value={inp} onChange={({target: {value}}) => setInp(value)}/>
         </form>
 
         <ul>
-            {posts.map(post =>(<li key={post.id}>{post.title}{console.log(post,'!!!!!!!!!!!!!!!!!')}</li>))}
+            {posts.map(post =>(<li key={post.id}>{post.title}</li>))}
         </ul>
-
 
     </div>);
 }

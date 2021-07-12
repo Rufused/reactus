@@ -7,70 +7,67 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 
 const initialState = {
-    counter:{
+    counter: {
         value: 0
     },
     posts: []
 }
 
 const reducer = (state = initialState, action) => {
+    console.log(action.posts)
     switch (action.type) {
-        default:{
-            return state;}
 
-        case 'ADD_POST':{
+        case 'ADD_POSTS': {
+
             return {
                 ...state,
-                posts: []
+                posts: action.posts
             }
         }
-        case 'INC':{
-            return{...state,
+        case 'INC': {
+            return {
+                ...state,
                 counter:
-                    {value: state.counter.value+1}
+                    {value: state.counter.value + 1}
             }
         }
-        case 'DEC':{
-            return {...state,
-            counter:
-                {value: state.counter.value-1}
-            }
-        }
-        case 'NUL':{
-            return {...state,
-            counter:
-                {value: state.counter.value=0}
-            }
-        }
-        case 'CUST':{
-            if (Number(action.payload)){
-                return {...state,
+        case 'DEC': {
+            return {
+                ...state,
                 counter:
-                    {value: state.counter.value = Number(action.payload.custom)}
-                }
+                    {value: state.counter.value - 1}
             }
         }
-
+        case 'NUL': {
+            return {
+                ...state,
+                counter:
+                    {value: state.counter.value = 0}
+            }
+        }
+        case 'CUST':
+            return {...state, counter: {value: state.counter.value + action.payload}}
+        default:
+            return {...state}
     }
 }
 
 
 const store = createStore(reducer)
 
-store.subscribe(()=>{
-   console.log(store.getState())
+store.subscribe(() => {
+    console.log(store.getState())
 })
 
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Provider store={store}>
-      <App/>
-      </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
-
 
 
 // If you want to start measuring performance in your app, pass a function
