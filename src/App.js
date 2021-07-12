@@ -16,13 +16,13 @@ const NestedChild = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        getPosts().then(value => (posts.push(value.data)))
-    },[])
+        getPosts().then(value => (posts.push(value.data)))})
+
 
 
     dispatch({
         type: 'ADD_POSTS',
-        payload: {posts: posts}
+        payload: {posts}
     })
 
 
@@ -30,6 +30,8 @@ const NestedChild = () => {
 
     return(<div>
         {counter}
+        {console.log(posts,'22222222222222222222222222')}
+        {posts.map(post => console.log(post))}
         <br/>
         <button onClick={()=>{
             dispatch({type:'INC'})
@@ -50,12 +52,7 @@ const NestedChild = () => {
         </form>
 
         <ul>
-            {posts.map(post =>(
-
-                <li key={post.id}>
-                    {post.title}
-                </li>
-                    ))}
+            {posts.map(post =>(<li key={post.id}>{post.title}{console.log(post,'!!!!!!!!!!!!!!!!!')}</li>))}
         </ul>
 
 

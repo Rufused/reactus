@@ -15,6 +15,15 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        default:{
+            return state;}
+
+        case 'ADD_POST':{
+            return {
+                ...state,
+                posts: []
+            }
+        }
         case 'INC':{
             return{...state,
                 counter:
@@ -41,16 +50,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
         }
-        case 'ADD_POST':{
-            return {
-                ...state,
-                posts: action.payload.posts
-            }
-        }
-
-
-        default:
-            return state;
 
     }
 }
