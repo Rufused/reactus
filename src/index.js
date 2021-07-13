@@ -10,17 +10,32 @@ const initialState = {
     counter: {
         value: 0
     },
-    posts: []
-}
+    users: [],
+    posts: [],
+    comments: []
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'ADD_USERS': {
 
+            return {
+                ...state,
+                users: action.users
+            }
+        }
         case 'ADD_POSTS': {
 
             return {
                 ...state,
                 posts: action.posts
+            }
+        }
+        case 'ADD_COMMENTS': {
+
+            return {
+                ...state,
+                comments: action.comments
             }
         }
         case 'INC': {
@@ -45,7 +60,10 @@ const reducer = (state = initialState, action) => {
             }
         }
         case 'CUST':
-            return {...state, counter: {value: state.counter.value + action.payload}}
+            return {
+                ...state,
+                counter: {value: state.counter.value + action.payload}
+            }
         default:
             return {...state}
     }

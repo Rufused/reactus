@@ -1,20 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "./services/API";
-import {useEffect, useState} from "react";
-
+import React, {useEffect} from "react";
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import Counter from "./components/counter/Counter"
 const NestedChild = () => {
-    const counter = useSelector(({counter: {value}}) => value)
-    const posts = useSelector(({posts}) => posts)
-
-    const [inp, setInp] = useState('');
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        dispatch({type:'CUST',payload: +inp})
-    }
 
     const dispatch = useDispatch()
+    const posts = useSelector(({posts}) => posts)
 
     useEffect(() => {
         getPosts().then(value => dispatch({
@@ -23,33 +15,29 @@ const NestedChild = () => {
     },[])
 
 
-
     return(<div>
-        {counter}
-        <br/>
-        <button onClick={()=>{
-            dispatch({type:'INC'})
-        }}>Increment</button>
-        <br/>
-        <button onClick={()=>{
-            dispatch({type:'DEC'})
-        }}>Decrement</button>
-        <br/>
-        <button onClick={()=>{
-            dispatch({type:'NUL'})
-        }}>Reset</button>
-        <br/>
+            <Router>
+                    <div>
+                        <Link to={'/'}>to starting page</Link>
+                        <br/>
+                        <Link to={'/Counter'}>to Counter</Link>
+                        <br/>
+                        <Link to={'/Users'}>to Users</Link>
+                        <br/>
+                        <Link to={'/Users/Posts'}>to Posts of Users</Link>
+                        <br/>
+                        <Link to={'/Users/Posts/Comments'}>to Comments on Posts</Link>
 
-        <form  onSubmit={handleSubmit}>
-            <button type={"submit"}>Custom</button>
-            <input name={"custom"} type="text" value={inp} onChange={({target: {value}}) => setInp(value)}/>
-        </form>
+                        <Route path={'/Counter'} render={() => <Counter/>}/>
+                    </div>
+            </Router>
+            <div>
+                <ul>
+                    {posts.map(post =>(<li key={post.id}>{post.title}</li>))}
+                </ul>
 
-        <ul>
-            {posts.map(post =>(<li key={post.id}>{post.title}</li>))}
-        </ul>
-
-    </div>);
+            </div>
+        </div>);
 }
 
 
