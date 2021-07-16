@@ -1,18 +1,15 @@
-import {useDispatch, useSelector} from "react-redux";
-import {getPosts} from "./services/API";
-import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
+import React from "react";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Counter from "./components/counter/Counter"
+import Users from "./components/users/Users";
+import Posts from "./components/posts/Posts";
+import Comments from "./components/comments/Comments";
 const NestedChild = () => {
 
-    const dispatch = useDispatch()
-    const posts = useSelector(({posts}) => posts)
 
-    useEffect(() => {
-        getPosts().then(value => dispatch({
-        type: 'ADD_POSTS',
-        posts: value.data}))
-    },[])
+    const posts = useSelector(({posts}) => posts)
+    const comments = useSelector(({comments}) => comments)
 
 
     return(<div>
@@ -24,19 +21,17 @@ const NestedChild = () => {
                         <br/>
                         <Link to={'/Users'}>to Users</Link>
                         <br/>
-                        <Link to={'/Users/Posts'}>to Posts of Users</Link>
+                        <Link to={'/Posts'}>to Posts of Users</Link>
                         <br/>
-                        <Link to={'/Users/Posts/Comments'}>to Comments on Posts</Link>
+                        <Link to={'/Comments'}>to Comments on Posts</Link>
 
                         <Route path={'/Counter'} render={() => <Counter/>}/>
+                        <Route path={'/Users'} render={() => <Users/>}/>
+                        <Route path={'/Posts'} render={() => <Posts/>}/>
+                        <Route path={'/Comments'} render={() => <Comments/>}/>
                     </div>
             </Router>
-            <div>
-                <ul>
-                    {posts.map(post =>(<li key={post.id}>{post.title}</li>))}
-                </ul>
 
-            </div>
         </div>);
 }
 
