@@ -7,11 +7,6 @@ import Posts from "./components/posts/Posts";
 import Comments from "./components/comments/Comments";
 const NestedChild = () => {
 
-
-    const posts = useSelector(({posts}) => posts)
-    const comments = useSelector(({comments}) => comments)
-
-
     return(<div>
             <Router>
                     <div>
@@ -34,8 +29,6 @@ const NestedChild = () => {
 
         </div>);
 }
-
-
 
 export default function App() {
     return (<NestedChild/>)

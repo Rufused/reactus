@@ -1,9 +1,6 @@
 import {useSelector} from "react-redux";
 import React  from "react";
 
-
-
-
 export default function Posts() {
 
     const posts = useSelector(({posts}) => posts)
